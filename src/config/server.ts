@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import { Server } from "@overnightjs/core";
 import { logger } from "../utils/logger/logger";
+import routes from "../modules";
 
 export default class MyServer extends Server {
   constructor() {
@@ -18,7 +19,7 @@ export default class MyServer extends Server {
 
   private setupController(): void {
     logger.info("Setting up controllers");
-    // super.addControllers(routes);
+    super.addControllers(routes);
   }
 
   public start(port: string): void {
