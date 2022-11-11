@@ -1,3 +1,5 @@
+import { DeleteResult } from "typeorm";
+
 interface IReader<T> {
   getCount(): Promise<number>;
   findAll(
@@ -10,9 +12,9 @@ interface IReader<T> {
 
 interface IWriter<T> {
   create(data: Partial<T>): Promise<T>;
-  createMany(data: Partial<T>[]): Promise<T[]>;
+  createMany?(data: Partial<T>[]): Promise<T[]>;
   update(id: number, data: Partial<T>): Promise<T>;
-  delete(id: number): Promise<void>;
+  delete(id: number): Promise<void | DeleteResult>;
 }
 
 type BaseRepository<T> = IReader<T> & IWriter<T>;
@@ -27,4 +29,9 @@ type TUser = {
   id: number;
   email: string;
   password: string;
+};
+
+type TUserWToken = {
+  user: TUser;
+  token: string;
 };
